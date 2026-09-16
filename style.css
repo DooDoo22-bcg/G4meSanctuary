@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     background: #080808;
@@ -8,21 +12,116 @@ body {
 header {
     padding: 25px 40px;
     border-bottom: 1px solid #222;
+    background: #0b0b0b;
 }
 
 h1 {
     margin: 0 0 20px;
+    font-size: 32px;
 }
 
-nav button {
+.top-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#search {
+    width: 300px;
+    padding: 11px 14px;
     background: #151515;
     color: white;
     border: 1px solid #333;
-    padding: 10px 20px;
-    margin-right: 8px;
+    outline: none;
+}
+
+.top-bar button {
+    padding: 11px 18px;
+    background: #151515;
+    color: white;
+    border: 1px solid #333;
     cursor: pointer;
+}
+
+.top-bar button:hover {
+    background: #222;
 }
 
 main {
     padding: 40px;
+}
+
+#games {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.game-card {
+    background: #111;
+    border: 1px solid #252525;
+    padding: 20px;
+    min-height: 150px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.game-card h2 {
+    margin-top: 0;
+}
+
+.play-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.play-button:hover {
+    background: #ddd;
+}
+
+.favorite {
+    height: 35px;
+    width: 35px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.nothing {
+    color: #777;
+}
+
+/* Light mode */
+
+body.light {
+    background: #eeeeee;
+    color: #111;
+}
+
+body.light header {
+    background: #ffffff;
+    border-color: #ccc;
+}
+
+body.light #search,
+body.light .top-bar button {
+    background: #ffffff;
+    color: #111;
+    border-color: #ccc;
+}
+
+body.light .game-card {
+    background: #ffffff;
+    border-color: #ccc;
+}
+
+body.light .favorite {
+    color: #111;
 }

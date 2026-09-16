@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    background: #080808;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    padding: 25px 40px;
+    border-bottom: 1px solid #222;
+}
+
+h1 {
+    margin: 0 0 20px;
+}
+
+nav button {
+    background: #151515;
+    color: white;
+    border: 1px solid #333;
+    padding: 10px 20px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+main {
+    padding: 40px;
+}

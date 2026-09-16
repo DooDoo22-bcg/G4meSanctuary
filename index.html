@@ -2,26 +2,148 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G4meSanctuary</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
-        <h1>G4meSanctuary</h1>
+<header>
+    <h1>G4meSanctuary</h1>
 
-        <nav>
-            <button>G4mes</button>
-            <button>Favorites</button>
-        </nav>
-    </header>
+    <div class="top-bar">
+        <input type="text" id="search" placeholder="Search G4mes...">
 
-    <main>
-        <h2>G4mes</h2>
-        <div id="games"></div>
-    </main>
+        <button id="gamesButton">G4mes</button>
+        <button id="favoritesButton">Favorites</button>
+        <button id="themeButton">☀</button>
+    </div>
+</header>
+
+<main>
+    <div id="games"></div>
+</main>
+
+<script>
+
+const games = [
+
+    {
+        name: "Test G4me",
+        file: "games/test.html"
+    }
+
+];
+
+let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+
+let showingFavorites = false;
+
+const gamesContainer = document.getElementById("games");
+const search = document.getElementById("search");
+
+function displayGames() {
+
+    gamesContainer.innerHTML = "";
+
+    let searchText = search.value.toLowerCase();
+
+    let filteredGames = games.filter(game => {
+
+        let matchesSearch =
+            game.name.toLowerCase().includes(searchText);
+
+        let matchesFavorites =
+            !showingFavorites || favorites.includes(game.file);
+
+        return matchesSearch && matchesFavorites;
+
+    });
+
+    if (filteredGames.length === 0) {
+
+        gamesContainer.innerHTML =
+            "<p class='nothing'>No G4mes found.</p>";
+
+        return;
+    }
+
+    filteredGames.forEach(game => {
+
+        const card = document.createElement("div");
+
+        card.className = "game-card";
+
+        const isFavorite = favorites.includes(game.file);
+
+        card.innerHTML = `
+            <div class="game-info">
+                <h2>${game.name}</h2>
+
+                <a href="${game.file}" class="play-button">
+                    Play
+                </a>
+            </div>
+
+            <button class="favorite">
+                ${isFavorite ? "★" : "☆"}
+            </button>
+        `;
+
+        card.querySelector(".favorite").onclick = () => {
+
+            if (favorites.includes(game.file)) {
+
+                favorites = favorites.filter(
+                    file => file !== game.file
+                );
+
+            } else {
+
+                favorites.push(game.file);
+
+            }
+
+            localStorage.setItem(
+                "favorites",
+                JSON.stringify(favorites)
+            );
+
+            displayGames();
+        };
+
+        gamesContainer.appendChild(card);
+
+    });
+}
+
+search.addEventListener("input", displayGames);
+
+document.getElementById("gamesButton").onclick = () => {
+
+    showingFavorites = false;
+
+    displayGames();
+
+};
+
+document.getElementById("favoritesButton").onclick = () => {
+
+    showingFavorites = true;
+
+    displayGames();
+
+};
+
+document.getElementById("themeButton").onclick = () => {
+
+    document.body.classList.toggle("light");
+
+};
+
+displayGames();
+
+</script>
 
 </body>
 </html>
